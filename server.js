@@ -5,14 +5,14 @@ const db = require(__dirname + "/" + "records.json")
  
 
 
-//This Code GETS all users from json database
-app.get('/getAllUsers', (req, res) => {
+//Return All The Records In The Data
+app.get('/users', (req, res) => {
     res.send(db) 
      })
 
 
-// This code gets user by id
-app.get('/getUserId/:id', (req, res) => {
+//Return Record Per Id
+app.get('/user/:id', (req, res) => {
     const id = +req.params.id
     const results =  db.find(item => {
         return item.id === id
@@ -33,20 +33,27 @@ app.patch('/updateUser/:id', (req, res) => {
         
          })
 
-
- app.delete('/userDelete/:id', (req,res) =>{
+// this code deletes user  by id 
+ app.delete('/deleteUser/:id', (req,res) =>{
     const id = +req.params.id
-    const data = db.splice( i => i.id === id)
-    res.send(data)
+    db.splice( (i) => i.id == id)
+    res.status(200).send()
           })
     
 
 //This code adds new user
 app.use(express.json())
-app.post('/addNewUser', (req, res) => { 
-    console.log(req.body)
-     db.push(req.body) 
-      res.send(db)
+app.post('/createUser', (req, res) => { 
+   const uuid = Math.floor(Math.random() * 100)
+      const final = db.push(uuid,req.body) 
+      if(final){
+        console.log(final)
+      }
+      
+    // db.forEach(b => b.id === id + 1)
+ 
+    // res.send(db)
+
        }) 
  
 
