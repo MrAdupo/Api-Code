@@ -26,7 +26,6 @@ app.patch('/updateUser/:id', (req, res) => {
     const newUserDetails = req.body
     const id = +req.params.id
     const data2 = db.findIndex(a => a.id === id)
-    console.log("before update", db[data2])
     db[data2] = newUserDetails
     res.send(db[data2])
 
@@ -46,10 +45,6 @@ app.post('/createUser', (req, res) => {
     const newUser = { id: uuid, ...req.body }
     db.push(newUser)
     res.send(newUser)
-
-    // db.forEach(b => b.id === id + 1)
-
-    // res.send(db)
 
 })
 
